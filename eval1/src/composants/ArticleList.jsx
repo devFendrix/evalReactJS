@@ -33,7 +33,7 @@ export const ArticleList = () => {
  }
 
  return <>
-    <Form setReq={setReq} />
+
     {!req.lodding && req.erreur.length === 0 ? req.data.slice(0,3).map((article, index) => {
         return <article key={index} className="col-4">
             <h4>{article.title}</h4>
