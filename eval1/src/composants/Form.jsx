@@ -19,9 +19,10 @@ export const Form = (props) => {
             //console.log(form);
             setForm({title : "" , comment : ""}) // vider le formulaire
             props.setReq((prevData) => {
-                prevData.ArticleList.push({title : e.target.value})
-                return { ...prevData , commentaires : prevData.commentaires  }
+                prevData.data.unshift({title : e.target.title, body : e.target.comment})
+                return { ...prevData , data : prevData.data  }
             })
+            setForm({ title: "", comment: "" });
         }else {
             alert("veuillez compléter le titre ainsi que le commentaire.")
         }
@@ -33,8 +34,8 @@ export const Form = (props) => {
         </button>
         {visible && (
             <form onSubmit={handleSubmit}>
-            <input type="text" className="form-control" name="email" value={form.title} onChange={handleChange} placeholder="titre de l'article" />
-            <textarea  id="" cols="30" rows="10"  className="form-control my-3" name="commentaire" onChange={handleChange} value={form.comment} placeholder="body de l'article"></textarea>
+            <input type="text" className="form-control" name="title" value={form.title} onChange={handleChange} placeholder="titre de l'article" />
+            <textarea  id="" cols="30" rows="10"  className="form-control my-3" name="comment" onChange={handleChange} value={form.comment} placeholder="body de l'article"></textarea>
             <button className="btn btn-success">Nouvel article</button>
         </form>
         )}
