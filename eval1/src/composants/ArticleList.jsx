@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Form } from "./Form"
 
-export const ArticleList = () => {
+export const ArticleList = (props) => {
  const [req, setReq] = useState({
      erreur : "",
      lodding : true ,
@@ -17,7 +17,7 @@ export const ArticleList = () => {
             ...req , 
             erreur : "",
             lodding : false ,
-            data : data
+            data : data.slice(0, 3)
         }) )
         .catch( ex => setReq({
             ...req ,
@@ -27,18 +27,18 @@ export const ArticleList = () => {
         }) )
  } , [] );
 
- function deleteItem(e){
-    const name = e.target.name
-    this.setReq({name})
+ function handleClick(id){
+    const tab = req.data.filter(article => {return article.id != id})
+    setReq({...req, data : tab})
  }
 
  return <>
 
-    {!req.lodding && req.erreur.length === 0 ? req.data.slice(0,3).map((article, index) => {
+    {!req.lodding && req.erreur.length === 0 ? req.data.map((article, index) => {
         return <article key={index} className="col-4">
             <h4>{article.title}</h4>
             <p>{article.body}</p>
-            <button name={index} className="btn btn-danger" onClick={deleteItem}>Supprimer</button>
+            <button className="btn btn-danger" onClick={() => handleClick(article.id)}>Supprimer</button>
         </article>
     }) : <p> { req.erreur } </p>}
  </>

@@ -16,7 +16,6 @@ export const Form = (props) => {
         e.preventDefault(); //  bloquer le rechargement de page 
         const {title, comment} = form ;
         if(title.length > 0 && comment.length > 0){
-            //console.log(form);
             setForm({title : "" , comment : ""}) // vider le formulaire
             props.setReq((prevData) => {
                 prevData.data.unshift({title : e.target.title, body : e.target.comment})
